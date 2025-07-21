@@ -1,0 +1,114 @@
+// Variables
+$color-background-dark: #0a0a0a;
+$color-text-light: #f0f0f0;
+$color-text-dark: #a0a0a0;
+$color-card-background-light: #5f6a7d; // Light greyish-blue for image background
+$color-card-background-dark: #2a2a2a; // Darker grey for content background
+$color-cta-background: #90ee90; // Light green for CTA
+$color-cta-text: #333;
+$color-corner-icon-background: #ffc107; // Yellow for the corner "F"
+$color-corner-icon-text: #333;
+
+@import './portfolio.module.scss'; // Import the portfolio module styles
+
+.portfolio-section {
+  background-color: $color-background-dark;
+  color: $color-text-light;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column; // Stack columns on small screens
+  gap: 3rem;
+  font-family: Arial, sans-serif; // Or your preferred font
+
+  @media (min-width: 1024px) {
+    flex-direction: row; // Side-by-side columns on larger screens
+    padding: 6rem 4rem;
+    gap: 5rem;
+  }
+
+  &__left-column {
+    flex: 1;
+    max-width: 500px; // Limit width of text content
+    margin-right: auto; // Push to the left for desktop layout
+    padding-left: 1rem; // Visual alignment
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: $color-text-dark;
+    margin-bottom: 2rem;
+  }
+
+  &__cta-button {
+    background-color: $color-cta-background;
+    color: $color-cta-text;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: darken($color-cta-background, 10%);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__right-column {
+    flex: 2;
+    position: relative; // For positioning the corner icon
+    display: flex;
+    justify-content: center; // Center grid horizontally
+    align-items: flex-start; // Align grid to the top
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); // Adjust minmax for card size
+    gap: 1.5rem;
+    width: 100%; // Ensure grid takes full width of its container
+    max-width: 900px; // Max width for the grid to prevent too wide cards
+    justify-content: center; // Center grid items
+    align-content: start; // Align rows to the top
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr); // 3 columns on tablet
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr); // 4 columns on desktop
+    }
+  }
+
+  &__corner-icon {
+    position: absolute;
+    top: -2rem; // Adjust as needed
+    right: 0;
+    background-color: $color-corner-icon-background;
+    color: $color-corner-icon-text;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    z-index: 10; // Ensure it's above other content
+
+    @media (max-width: 1023px) {
+      top: 0; // Adjust position for smaller screens
+      right: 1rem;
+    }
+  }
+}

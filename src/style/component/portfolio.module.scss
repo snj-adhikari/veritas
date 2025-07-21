@@ -1,0 +1,82 @@
+// PortfolioCard specific styles (could also be in its own SCSS file if preferred)
+.portfolio-card {
+  perspective: 1000px; // For 3D flip effect
+  width: 200px; // Fixed width for consistent card size
+  height: 200px; // Fixed height
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease-in-out; // For scale effect on hover
+
+  &:hover {
+    transform: scale(1.05); // Slight increase in size on hover
+    .portfolio-card__inner {
+      transform: rotateY(180deg); // Flip animation
+    }
+  }
+
+  &__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    overflow: hidden; // Ensures content respects border-radius
+  }
+
+  &__front,
+  &__back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); // Subtle shadow
+  }
+
+  &__front {
+    background-color: $color-card-background-light;
+    color: $color-text-light;
+  }
+
+  &__back {
+    background-color: $color-card-background-dark;
+    color: $color-text-light;
+    transform: rotateY(180deg);
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: left;
+    justify-content: flex-start; // Align content to the top
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Ensure image covers the space
+  }
+
+  &__icon {
+    font-size: 3rem; // Example icon size
+    color: $color-text-light;
+    // You might use an SVG or icon font here instead of text
+  }
+
+  &__back-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    color: $color-text-light;
+  }
+
+  &__back-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: $color-text-dark;
+  }
+}

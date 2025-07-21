@@ -1,0 +1,64 @@
+// Variables
+$color-primary-text: #fff;
+$color-secondary-text: #a0a0a0;
+$color-background-dark: #1a1a1a;
+$color-card-background: #2a2a2a;
+$color-blue-border: #007bff; // A vibrant blue
+$color-orange-border: #ff7f00; // A vibrant orange
+$color-tag-background: #444;
+$color-tag-text: #eee;
+
+@import './work.module.scss'; // Import the works module styles
+
+.our-work-section {
+  background-color: $color-background-dark;
+  padding: 4rem 2rem;
+  color: $color-primary-text;
+  font-family: Arial, sans-serif; // Or your preferred font
+
+  &__header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+    padding-left: 1rem; // Align with the first card visually
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: $color-primary-text;
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: $color-secondary-text;
+  }
+
+  &__cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center; // Center cards in the grid
+  }
+
+  // Media queries for responsiveness
+  @media (min-width: 768px) {
+    &__cards-grid {
+      grid-template-columns: repeat(2, 1fr); // Two columns on larger screens
+    }
+  }
+
+  @media (min-width: 1024px) {
+    padding: 6rem 4rem;
+    &__cards-grid {
+      grid-template-columns: repeat(3, 1fr); // Three columns on even larger screens
+    }
+  }
+
+  @media (min-width: 1200px) {
+    &__cards-grid {
+      grid-template-columns: repeat(4, 1fr); // Example for a 4-column layout
+    }
+  }
+}

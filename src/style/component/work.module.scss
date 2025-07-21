@@ -1,0 +1,102 @@
+// WorkCard specific styles (could also be in its own SCSS file if preferred)
+.work-card {
+  background-color: $color-card-background;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent; // Default transparent border
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  // Modifiers for different themes
+  &--theme-blue {
+    border-color: $color-blue-border;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); // Subtle glow
+  }
+
+  &--theme-orange {
+    border-color: $color-orange-border;
+    box-shadow: 0 4px 15px rgba(255, 127, 0, 0.2); // Subtle glow
+  }
+
+  &__image-wrapper {
+    width: 100%;
+    height: 180px; // Fixed height for images
+    overflow: hidden;
+    position: relative; // For positioning the icon
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Ensures the image covers the area without distortion
+    display: block;
+  }
+
+  &__content {
+    padding: 1.5rem;
+    flex-grow: 1; // Allows content to take up available space
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__tags {
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__tag {
+    background-color: $color-tag-background;
+    color: $color-tag-text;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    color: $color-primary-text;
+  }
+
+  &__description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: $color-secondary-text;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; // Pushes the link to the bottom
+  }
+
+  &__link {
+    display: flex;
+    justify-content: flex-end; // Pushes the arrow to the right
+    align-items: center;
+    color: $color-primary-text;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem; // Size for the arrow
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-blue-border; // Example hover color
+    }
+  }
+
+  &__link-icon {
+    margin-left: 0.5rem;
+    font-size: 1.5rem; // Adjust arrow size
+  }
+}

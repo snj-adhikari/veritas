@@ -1,0 +1,136 @@
+// Variables
+$color-background-dark: #000;
+$color-text-light: #fff;
+$color-text-dark: #a0a0a0;
+$color-input-background: #1a1a1a;
+$color-input-border: #333;
+$color-submit-button-background: #808080; // Greyish color from image
+$color-submit-button-text: #fff;
+$color-focus-border: #666; // A slightly lighter border on focus
+
+.contact-section {
+  background-color: $color-background-dark;
+  color: $color-text-light;
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column; // Stack on small screens
+  gap: 3rem;
+  font-family: Arial, sans-serif; // Or your preferred font
+
+  @media (min-width: 1024px) {
+    flex-direction: row; // Side-by-side on larger screens
+    padding: 8rem 4rem;
+    justify-content: space-between;
+    align-items: flex-start; // Align top of content
+  }
+
+  &__left-content {
+    flex: 1;
+    max-width: 600px; // Limit text width
+    margin-right: auto; // Push to the left for desktop
+    padding-left: 1rem; // Visual alignment
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1.2;
+    // Apply a specific font if available, e.g., font-family: 'Georgia', serif;
+  }
+
+  &__right-form-wrapper {
+    flex: 1;
+    max-width: 500px; // Limit form width
+    margin-left: auto; // Push to the right for desktop
+  }
+
+  &__form-quote {
+    font-size: 1rem;
+    color: $color-text-dark;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__form-group {
+    position: relative; // For the custom select arrow
+    &--inline {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column; // Stack on small screens
+      @media (min-width: 600px) {
+        flex-direction: row; // Side-by-side on larger screens
+      }
+    }
+  }
+
+  &__form-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: $color-input-background;
+    border: 1px solid $color-input-border;
+    border-radius: 4px;
+    color: $color-text-light;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: $color-focus-border;
+      box-shadow: 0 0 0 2px rgba($color-focus-border, 0.3);
+    }
+
+    &::placeholder {
+      color: $color-text-dark;
+    }
+
+    &--select {
+      appearance: none; // Remove default select arrow
+      -webkit-appearance: none;
+      background-image: none; // Ensure no default browser arrow is visible
+      padding-right: 2.5rem; // Space for custom arrow
+    }
+
+    &--textarea {
+      resize: vertical; // Allow vertical resizing
+      min-height: 100px; // Minimum height for textarea
+    }
+  }
+
+  &__select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $color-text-light; // Down arrow
+    pointer-events: none; // Allow clicks to pass through to the select
+  }
+
+  &__submit-button {
+    background-color: $color-submit-button-background;
+    color: $color-submit-button-text;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start; // Align button to the left
+
+    &:hover {
+      background-color: lighten($color-submit-button-background, 10%);
+      transform: translateY(-2px);
+    }
+  }
+}

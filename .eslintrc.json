@@ -1,0 +1,12 @@
+// .eslintrc.json
+{
+  "extends": ["react-app"],
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"], // Target TypeScript files
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off" // Example override
+      }
+    }
+  ]
+}

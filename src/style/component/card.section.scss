@@ -1,0 +1,42 @@
+@import "card.module.scss";
+
+.card-section {
+  padding: 4rem 2rem;
+  color: #ffffff;
+
+  &__header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: #d1d5db;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  &__footer {
+    text-align: center;
+  }
+
+  &__cta-button {
+    background-color: #d9ebd0;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}

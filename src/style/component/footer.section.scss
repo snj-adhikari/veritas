@@ -1,0 +1,125 @@
+// Variables
+$color-footer-background: #4A4A4A; // Dark grey from the image
+$color-text-light: #f0f0f0;
+$color-text-secondary: #c0c0c0; // Slightly darker for general text
+$color-link-hover: #90ee90; // Light green for links on hover
+
+.footer-section {
+  background-color: $color-footer-background;
+  padding: 3rem 2rem; // Padding top/bottom and left/right
+  color: $color-text-secondary;
+  font-family: Arial, sans-serif; // Or your preferred font
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  @media (min-width: 768px) {
+    padding: 4rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column; // Stack columns on small screens
+    gap: 2.5rem; // Space between columns
+    max-width: 1200px; // Limit overall width
+    margin: 0 auto; // Center the content
+
+    @media (min-width: 768px) {
+      flex-direction: row; // Arrange columns side-by-side
+      justify-content: space-between; // Distribute space between columns
+      align-items: flex-start; // Align columns to the top
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Align text to the left within columns
+
+    &--logo {
+      flex-basis: 30%; // Give the logo column more space
+      min-width: 200px; // Ensure it doesn't get too narrow
+    }
+
+    // Other columns take remaining space
+    &:not(&--logo) {
+      flex-basis: 20%;
+    }
+
+    @media (max-width: 767px) {
+      width: 100%; // Full width on small screens
+    }
+  }
+
+  &__logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $color-text-light;
+    margin-bottom: 1.5rem;
+  }
+
+  &__contact-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $color-link-hover; // Greenish color from the image
+    margin-bottom: 0.8rem;
+  }
+
+  &__contact-info {
+    display: block; // Make email and address display on new lines
+    margin-bottom: 0.5rem;
+    color: $color-text-secondary;
+    text-decoration: none; // For links
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-text-light;
+    }
+  }
+
+  &__social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__social-icon {
+    color: $color-text-secondary;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $color-text-light;
+    }
+  }
+
+  &__column-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $color-link-hover; // Greenish color from the image
+    margin-bottom: 1rem;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__list-item {
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    a {
+      color: $color-text-secondary;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-text-light;
+      }
+    }
+  }
+}
