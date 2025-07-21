@@ -2,6 +2,9 @@
 
 This project is a basic React website theme designed for portfolios, featuring simple animations and a clean design. It's built using Create React App, providing a solid foundation for showcasing your work and skills.
 
+<img width="2880" height="8580" alt="screencapture-localhost-3000-2025-07-21-21_10_00" src="https://github.com/user-attachments/assets/24d09416-3af0-4335-9efe-41375d740594" />
+
+
 ## Features
 
 -   **Modern React:** Built with the latest React features and best practices.
