@@ -8,25 +8,32 @@ $color-orange-border: #ff7f00; // A vibrant orange
 $color-tag-background: #444;
 $color-tag-text: #eee;
 
-@import './work.module.scss'; // Import the works module styles
+// Import card styles so they are globally available
+@import './work.module.scss';
 
 .our-work-section {
+  position: relative;
   background-color: $color-background-dark;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   color: $color-primary-text;
-  font-family: Arial, sans-serif; // Or your preferred font
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+  align-items: center;
 
   &__header {
-    max-width: 600px;
+    width: 100%;
+    max-width: 800px; 
+    text-align: center;
     margin-bottom: 3rem;
-    padding-left: 1rem; // Align with the first card visually
   }
 
   &__title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
-    color: $color-primary-text;
+    margin-bottom: 1.5rem;
   }
 
   &__description {
@@ -35,30 +42,52 @@ $color-tag-text: #eee;
     color: $color-secondary-text;
   }
 
-  &__cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    justify-items: center; // Center cards in the grid
-  }
+  &__canvas-container {
+    width: 100%;
+    height: 85vh;
+    // Prevents mouse events on the canvas from interfering with scrolling
+    pointer-events: none; 
 
-  // Media queries for responsiveness
-  @media (min-width: 768px) {
-    &__cards-grid {
-      grid-template-columns: repeat(2, 1fr); // Two columns on larger screens
+    @media (max-width: 900px) {
+      height: 100vh;
     }
   }
 
-  @media (min-width: 1024px) {
-    padding: 6rem 4rem;
-    &__cards-grid {
-      grid-template-columns: repeat(3, 1fr); // Three columns on even larger screens
-    }
+  &__cta-container {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
   }
 
-  @media (min-width: 1200px) {
-    &__cards-grid {
-      grid-template-columns: repeat(4, 1fr); // Example for a 4-column layout
+  &__cta-button {
+    background-color: $color-blue-border;
+    color: $color-primary-text;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-blue-border, 10%);
+      transform: translateY(-3px);
     }
+  }
+}
+
+// This wrapper is used by the <Html> component from drei
+.card-wrapper {
+  // Re-enable pointer events for the cards themselves
+  pointer-events: auto;
+  width: 400px;
+  
+  @media (max-width: 1200px) {
+    width: 350px;
+  }
+
+  @media (max-width: 900px) {
+    width: 320px;
   }
 }
