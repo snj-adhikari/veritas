@@ -1,18 +1,8 @@
-// Variables
-$color-background-dark: #0a0a0a;
-$color-text-light: #f0f0f0;
-$color-text-dark: #a0a0a0;
-$color-card-background-light: #5f6a7d; // Light greyish-blue for image background
-$color-card-background-dark: #2a2a2a; // Darker grey for content background
-$color-cta-background: #90ee90; // Light green for CTA
-$color-cta-text: #333;
-$color-corner-icon-background: #ffc107; // Yellow for the corner "F"
-$color-corner-icon-text: #333;
+
 
 @import './portfolio.module.scss'; // Import the portfolio module styles
 
 .portfolio-section {
-  background-color: $color-background-dark;
   color: $color-text-light;
   padding: 4rem 2rem;
   display: flex;
@@ -84,10 +74,6 @@ $color-corner-icon-text: #333;
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr); // 3 columns on tablet
     }
-
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(4, 1fr); // 4 columns on desktop
-    }
   }
 
   &__corner-icon {
@@ -110,5 +96,13 @@ $color-corner-icon-text: #333;
       top: 0; // Adjust position for smaller screens
       right: 1rem;
     }
+  }
+
+  .margin-top-2 {
+    margin-top: 3rem; // Add margin for spacing
+  }
+
+  .margin-top-3 {
+    margin-top: 6rem; // Add more margin for larger spacing
   }
 }

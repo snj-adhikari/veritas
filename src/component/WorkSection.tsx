@@ -1,70 +1,184 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { ScrollControls, useScroll, Html } from '@react-three/drei';
 import WorkCard from './WorkCard';
 
-// Define a type for the WorkCard props for better type checking
-interface WorkCardProps {
+interface WorkCardData {
+  id: number;
   title: string;
   description: string;
   imageSrc: string;
-  tags: string[]; // Assuming tags like "Events", "Corporate"
-  theme: 'blue' | 'orange'; // To control the border color
+  tags: string[];
+  theme: 'blue' | 'orange';
 }
 
-const OurWorkSection: React.FC = () => {
-  // Static data for the work cards
-  const workCardsData: WorkCardProps[] = [
+const workCardsData: WorkCardData[] = [
     {
-      title: 'Sed ut perspiciat is unde is te natus error.',
-      description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      imageSrc: 'https://via.placeholder.com/300x200', // Replace with your actual image paths
-      tags: ['Events', 'Corporate'],
-      theme: 'blue',
-    },
-    {
-      title: 'Sed ut perspiciat is unde is te natus error.',
-      description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      imageSrc: 'https://via.placeholder.com/300x200', // Replace with your actual image paths
+      id: 1,
+      title: 'Featured Project Showcase',
+      description: 'A deep dive into our collaboration with a leading tech firm to redefine their digital event presence.',
+      imageSrc: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=80',
       tags: ['Events', 'Corporate'],
       theme: 'orange',
     },
     {
-      title: 'Sed ut perspiciat is unde is te natus error.',
-      description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      imageSrc: 'https://via.placeholder.com/300x200', // Replace with your actual image paths
-      tags: ['Events', 'Corporate'],
+      id: 2,
+      title: 'Brand Identity Overhaul',
+      description: 'We crafted a new, vibrant brand identity for a startup, capturing their innovative spirit.',
+      imageSrc: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=500&q=80',
+      tags: ['Branding', 'Startups'],
       theme: 'blue',
     },
     {
-      title: 'Sed ut perspiciat is unde is te natus error.',
-      description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      imageSrc: 'https://via.placeholder.com/300x200', // Replace with your actual image paths
-      tags: ['Events', 'Corporate'],
+      id: 3,
+      title: 'Interactive Web Experience',
+      description: 'An immersive website designed to engage users and drive conversions for an e-commerce client.',
+      imageSrc: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=500&q=80',
+      tags: ['Web', 'E-commerce'],
       theme: 'orange',
     },
-  ];
+    {
+      id: 4,
+      title: 'National Marketing Campaign',
+      description: 'Spearheaded a multi-platform campaign that resulted in a 200% increase in customer engagement.',
+      imageSrc: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&q=80',
+      tags: ['Marketing', 'Campaign'],
+      theme: 'blue',
+    },
+    {
+      id: 5,
+      title: 'E-commerce Platform Launch',
+      description: 'Successfully launched a new e-commerce platform, leading to a 150% increase in online sales.',
+      imageSrc: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=80',
+      tags: ['E-commerce', 'Retail'],
+      theme: 'orange',
+    },
+    {
+      id: 6,
+      title: 'Mobile App Redesign',
+      description: 'Redesigned a popular mobile app, improving user retention by 40% and engagement by 60%.',
+      imageSrc: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&q=80',
+      tags: ['Mobile', 'UX/UI'],
+      theme: 'blue',
+    },
+];
+
+const ScrollEndDetector = ({ onScrollEnd }: { onScrollEnd: () => void }) => {
+  const scroll = useScroll();
+  const hasEnded = useRef(false);
+
+  useFrame(() => {
+    // When scroll offset is at the very bottom (1)
+    if (scroll?.offset >= 0.999 && !hasEnded.current) {
+      onScrollEnd();
+      hasEnded.current = true;
+    }
+    // Optional: re-enable if user scrolls back up
+    if (scroll.offset < 0.999 && hasEnded.current) {
+        hasEnded.current = false;
+    }
+  });
+
+  return null;
+};
+
+const Cards = () => {
+  const groupRef = useRef<import('three').Group>(null);
+  const scroll = useScroll();
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const scrollOffset = scroll.offset;
+      // Smooth scroll that reveals 2 cards at a time and focuses on new content
+      // Each scroll reveals next pair and moves focus to newly revealed cards
+      const totalPairs = Math.ceil(workCardsData.length / 2);
+      const scrollProgress = scrollOffset * (totalPairs - 1); // -1 because first pair is always visible
+      
+      // Move camera to focus on newly revealed content
+      // Start at 0, then move down to reveal and focus on new pairs
+      groupRef.current.position.y = scrollProgress * 8; // 8 units per pair reveal
+    }
+  });
+
+  // All cards are treated equally for smooth reveal
+  const allCards = workCardsData;
 
   return (
+    <group ref={groupRef}>
+      {/* All Cards - Zig-zag layout with progressive reveal */}
+      {allCards.map((card, index) => {
+        const isLeft = index % 2 === 0;
+        // Position cards in rows of 2, starting from top with no initial spacing
+        // Each row is 5 units apart vertically for tight spacing
+        const row = Math.floor(index / 2);
+        const rowMod = index % 2; // 0 for left, 1 for right
+        const xPos = isLeft ? -8  + Math.floor(Math.random() * 2) : 3 - Math.floor(Math.random() * 2);
+        
+       
+        const yPos = index === 0 ? 5 : 5 - (row * 3) - (index * 3); // Start at y=0, then go down by 5 units per row
+
+        return (
+          <Html key={card.id} position={[xPos, yPos, 0]} className="card-wrapper">
+            <WorkCard {...card} />
+          </Html>
+        );
+      })}
+    </group>
+  );
+};
+
+const OurWorkSection: React.FC = () => {
+    const [isScrollEnabled, setIsScrollEnabled] = useState(true);
+  // Calculate scroll pages - first pair is always visible, remaining pairs need scrolling
+  const totalPairs = Math.ceil(workCardsData.length / 2);
+  const scrollPages = Math.max(1, totalPairs - 1.8); // -1 because first pair is always visible
+  
+  return (
     <section className="our-work-section">
-      <div className="our-work-section__header">
-        <h2 className="our-work-section__title">Our Work.</h2>
-        <p className="our-work-section__description">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-          quae ab illo inventore veritatis et quasi architecto beatae vitae
-          dicta sunt explicabo.
-        </p>
+      <div className="container">
+        <div className="our-work-section__header">
+          <div className='our-work-section__header-content'>
+            <h2 className="our-work-section__title">Our Work.</h2>
+            <p className="our-work-section__description">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+              quae ab illo inventore veritatis et quasi architecto beatae vitae
+              dicta sunt explicabo.
+            </p>
+          </div>
+            <div className='our-work-section__header-card'>
+            <WorkCard
+              title="Featured Project"
+              description="A showcase of our latest and greatest work, highlighting our expertise and creativity."
+              imageSrc="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80"
+              tags={['Featured', 'Project']}
+              theme={'orange'}
+            />
+            </div>
+        </div>
       </div>
-      <div className="our-work-section__cards-grid">
-        {workCardsData.map((card, index) => (
-          <WorkCard
-            key={index} // In a real application, use a unique ID for the key
-            title={card.title}
-            description={card.description}
-            imageSrc={card.imageSrc}
-            tags={card.tags}
-            theme={card.theme}
-          />
-        ))}
+      <div className="our-work-section__canvas-container">
+        <Canvas camera={{ position: [0, 0, 16], fov: 40 }}>
+           <ambientLight intensity={1.5} />
+           <pointLight position={[10, 10, 10]} intensity={1} />
+           {/* Set pages based on pairs to reveal */}
+           <ScrollControls 
+             pages={scrollPages} 
+             damping={0.3}
+             horizontal={false}
+             distance={1}
+             enabled={isScrollEnabled} // Enable/disable scrolling based on state
+           >
+             <Cards />
+           <ScrollEndDetector onScrollEnd={() => setIsScrollEnabled(false)} />
+
+           </ScrollControls>
+        </Canvas>
+      </div>
+      <div className="our-work-section__cta-container">
+        <button className="our-work-section__cta-button">
+          Let's Work Together
+        </button>
       </div>
     </section>
   );

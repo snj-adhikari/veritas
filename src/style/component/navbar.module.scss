@@ -2,11 +2,11 @@
   position: sticky;
   top: 0;
   padding-top: 24px;
-  z-index: 999;
+  z-index: 9999999;
 
   &__container {
     background-color: #2e2e33;
-    max-width: 1200px;
+    max-width: $max-container-width;
     margin: 0 auto;
     padding: 12px 24px;
     display: flex;

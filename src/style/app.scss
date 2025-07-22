@@ -1,3 +1,5 @@
+@import './helpers/variables';
+
 @import './component/navbar.module.scss';
 
 @import './component/hero.module.scss';
@@ -12,7 +14,14 @@
 
 @import './component/footer.section.scss';
 
+
 body { 
-    background-color: #000;
+    background-color: #1a1a1a;
     color: #fff;
+}
+
+.container { 
+    max-width: $max-container-width;
+    margin-left: auto;
+    margin-right: auto;
 }

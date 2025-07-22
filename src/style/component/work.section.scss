@@ -1,32 +1,34 @@
-// Variables
-$color-primary-text: #fff;
-$color-secondary-text: #a0a0a0;
-$color-background-dark: #1a1a1a;
-$color-card-background: #2a2a2a;
-$color-blue-border: #007bff; // A vibrant blue
-$color-orange-border: #ff7f00; // A vibrant orange
-$color-tag-background: #444;
-$color-tag-text: #eee;
 
-@import './work.module.scss'; // Import the works module styles
+
+// Import card styles so they are globally available
+@import './work.module.scss';
 
 .our-work-section {
-  background-color: $color-background-dark;
-  padding: 4rem 2rem;
+  position: relative;
+  background: #000;
+  padding: 6rem 2rem;
   color: $color-primary-text;
-  font-family: Arial, sans-serif; // Or your preferred font
+  gap: 2rem;
 
   &__header {
-    max-width: 600px;
+    width: 100%;
     margin-bottom: 3rem;
-    padding-left: 1rem; // Align with the first card visually
+    display: flex;
+    gap: 4rem;
+    justify-content: space-between  ;
+
+    &-content { 
+      width: calc(100% - 420px);
+      text-align: center;
+    }
+
   }
 
+
   &__title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
-    color: $color-primary-text;
+    margin-bottom: 1.5rem;
   }
 
   &__description {
@@ -35,30 +37,64 @@ $color-tag-text: #eee;
     color: $color-secondary-text;
   }
 
-  &__cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    justify-items: center; // Center cards in the grid
-  }
+  &__canvas-container {
+    width: 100%;
+    height: 85vh;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    // Prevents mouse events on the canvas from interfering with scrolling
+    pointer-events: none; 
 
-  // Media queries for responsiveness
-  @media (min-width: 768px) {
-    &__cards-grid {
-      grid-template-columns: repeat(2, 1fr); // Two columns on larger screens
+    // Target the div created by ScrollControls to hide the scrollbar
+    > div {
+      scrollbar-width: none; /* For Firefox */
+      &::-webkit-scrollbar {
+        display: none; /* For Chrome, Safari, and Opera */
+      }
     }
   }
 
-  @media (min-width: 1024px) {
-    padding: 6rem 4rem;
-    &__cards-grid {
-      grid-template-columns: repeat(3, 1fr); // Three columns on even larger screens
+  &__cta-container {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  &__cta-button {
+    background-color: $color-blue-border;
+    color: $color-primary-text;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-blue-border, 10%);
+      transform: translateY(-3px);
     }
   }
 
-  @media (min-width: 1200px) {
-    &__cards-grid {
-      grid-template-columns: repeat(4, 1fr); // Example for a 4-column layout
+  // This wrapper is used by the <Html> component from drei
+  .card-wrapper {
+    // Re-enable pointer events for the cards themselves
+    pointer-events: auto;
+    width: 400px;
+    transform: scale(0.6);
+    transition: transform 0.4s ease;
+    z-index:10;
+    
+    @media (max-width: 1200px) {
+      width: 350px;
+    }
+
+    @media (max-width: 900px) {
+      width: 320px;
     }
   }
 }
+

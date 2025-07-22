@@ -14,9 +14,14 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero/>
-      <CardSection/>
+      <div className="container">
+        <CardSection/>
+        
+      </div>
       <OurWorkSection/>
-      <PortfolioSection/>
+      <div className="container">
+        <PortfolioSection/>
+      </div>
       <ContactSection/>
       <FooterSection/>
     </div>
