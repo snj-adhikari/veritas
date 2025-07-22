@@ -3,23 +3,32 @@
   border: 1px solid #3a3a3a;
   border-radius: 1rem;
   padding: 1rem;
-  max-width: 350px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  $self: &;
+
 
   &__image {
-    width: 80px;
-    height: 80px;
-    background-color: #6b7280;
-    border-radius: 0.5rem;
-    align-self: flex-end;
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    background: grey;
     margin-bottom: 1rem;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  &__content {
+    display: flex;
   }
 
   &__body {
     display: flex;
     flex-direction: column;
+    width: calc(100% - 80px); // Adjust width to account for image
     flex: 1;
   }
 
@@ -44,5 +53,31 @@
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
+    margin: auto 16px;
   }
+
+  &--expanded {
+    transform: scale(1.05);
+
+    #{$self}__image {
+      width: 100%;
+      order: 1;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    #{$self}__body {
+      order: 2;
+      width: 100%;
+    }
+
+    #{$self}__content {
+      flex-direction: column;
+    }
+   
+  }
+
 }
