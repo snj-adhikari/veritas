@@ -10,7 +10,7 @@
   gap: 3rem;
   font-family: Arial, sans-serif; // Or your preferred font
 
-  @media (min-width: 1024px) {
+  @include desktop-only {
     flex-direction: row; // Side-by-side columns on larger screens
     padding: 6rem 4rem;
     gap: 5rem;
@@ -68,10 +68,9 @@
     gap: 1.5rem;
     width: 100%; // Ensure grid takes full width of its container
     max-width: 900px; // Max width for the grid to prevent too wide cards
-    justify-content: center; // Center grid items
-    align-content: start; // Align rows to the top
+    place-items: center;
 
-    @media (min-width: 768px) {
+    @include tablet-and-desktop {
       grid-template-columns: repeat(3, 1fr); // 3 columns on tablet
     }
   }
@@ -98,11 +97,15 @@
     }
   }
 
-  .margin-top-2 {
-    margin-top: 3rem; // Add margin for spacing
+  @include tablet-and-desktop {
+    
+    .margin-top-2 {
+      margin-top: 3rem; // Add margin for spacing
+    }
+
+    .margin-top-3 {
+      margin-top: 6rem; // Add more margin for larger spacing
+    }
   }
 
-  .margin-top-3 {
-    margin-top: 6rem; // Add more margin for larger spacing
-  }
 }

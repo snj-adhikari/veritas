@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { ScrollControls, useScroll, Html } from '@react-three/drei';
 import WorkCard from './WorkCard';
@@ -128,7 +128,17 @@ const Cards = () => {
 };
 
 const OurWorkSection: React.FC = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isScrollEnabled, setIsScrollEnabled] = useState(true);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
   // Calculate scroll pages - first pair is always visible, remaining pairs need scrolling
   const totalPairs = Math.ceil(workCardsData.length / 2);
   const scrollPages = Math.max(1, totalPairs - 1.8); // -1 because first pair is always visible
@@ -157,24 +167,34 @@ const OurWorkSection: React.FC = () => {
             </div>
         </div>
       </div>
-      <div className="our-work-section__canvas-container">
-        <Canvas camera={{ position: [0, 0, 16], fov: 40 }}>
-           <ambientLight intensity={1.5} />
-           <pointLight position={[10, 10, 10]} intensity={1} />
-           {/* Set pages based on pairs to reveal */}
-           <ScrollControls 
-             pages={scrollPages} 
-             damping={0.3}
-             horizontal={false}
-             distance={1}
-             enabled={isScrollEnabled} // Enable/disable scrolling based on state
-           >
-             <Cards />
-           <ScrollEndDetector onScrollEnd={() => setIsScrollEnabled(false)} />
+      {isMobile ? (
+        <div className="our-work-section__mobile-list">
+          {workCardsData.map((card) => (
+            <div key={card.id} className="card-wrapper">
+              <WorkCard {...card} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="our-work-section__canvas-container">
+          <Canvas camera={{ position: [0, 0, 16], fov: 40 }}>
+             <ambientLight intensity={1.5} />
+             <pointLight position={[10, 10, 10]} intensity={1} />
+             {/* Set pages based on pairs to reveal */}
+             <ScrollControls 
+               pages={scrollPages} 
+               damping={0.3}
+               horizontal={false}
+               distance={1}
+               enabled={isScrollEnabled} // Enable/disable scrolling based on state
+             >
+               <Cards />
+             <ScrollEndDetector onScrollEnd={() => setIsScrollEnabled(false)} />
 
-           </ScrollControls>
-        </Canvas>
-      </div>
+             </ScrollControls>
+          </Canvas>
+        </div>
+      )}
       <div className="our-work-section__cta-container">
         <button className="our-work-section__cta-button">
           Let's Work Together

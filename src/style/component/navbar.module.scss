@@ -40,6 +40,10 @@
     border-left: 1px solid #5a5a5a;
     padding-left: 40px;
 
+    @include mobile-only {
+      display: none; // Hide on mobile
+    }
+
     &__item {
       cursor: pointer;
       transition: color 0.2s ease;
@@ -51,7 +55,7 @@
   }
 
   &__cta {
-    background-color: #8d93af;
+    background-color: #4f46e5;
     color: #000;
     font-weight: 700;
     padding: 10px 20px;
@@ -60,8 +64,79 @@
     cursor: pointer;
     font-size: 14px;
 
+    @include mobile-only {
+      display: none; // Hide on mobile
+    }
+
     &:hover {
       background-color: lighten(#8d93af, 10%);
+    }
+  }
+
+  &__hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    z-index: 101;
+
+    span {
+      width: 2rem;
+      height: 0.25rem;
+      background: #ffffff;
+      border-radius: 10px;
+      transition: all 0.3s linear;
+      position: relative;
+      transform-origin: 1px;
+    }
+  }
+
+  // --- Mobile Menu Open State ---
+  &--open {
+    .navbar__nav--open {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #111827;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 100;
+
+      .navbar__item {
+        margin: 1.5rem 0;
+        font-size: 1.5rem;
+      }
+    }
+
+    .navbar__hamburger {
+      span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  @include tablet-and-desktop {
+
+    &__hamburger {
+      display: none;
     }
   }
 }
