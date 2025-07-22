@@ -13,47 +13,55 @@ const PortfolioSection: React.FC = () => {
   // Static data for the portfolio cards
   const portfolioCardsData: PortfolioCardProps[] = [
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+1', // Replace with your actual image paths
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+      title: 'Creative Branding',
+      description: 'Brand identity and logo design for modern businesses.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+2',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+      title: 'Web Development',
+      description: 'Responsive websites built with the latest technologies.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+3',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+      title: 'Photography',
+      description: 'Professional photography for products and events.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+4',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3c5c?auto=format&fit=crop&w=400&q=80',
+      title: 'UI/UX Design',
+      description: 'User-centered design for web and mobile applications.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+5',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80',
+      title: 'App Development',
+      description: 'Custom mobile apps for iOS and Android platforms.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+6',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+      title: 'Digital Marketing',
+      description: 'SEO, SEM, and social media marketing strategies.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+7',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3c5c?auto=format&fit=crop&w=400&q=80',
+      title: 'Content Creation',
+      description: 'Engaging content for blogs, websites, and social media.',
     },
     {
-      imageSrc: 'https://via.placeholder.com/200x200?text=Image+8',
-      title: 'Neque volutpat morbi sed.',
-      description: 'Et blandit non elit ac egestas risus non.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      imageSrc: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+      title: 'Video Production',
+      description: 'High-quality video production and editing services.',
+    },
+    {
+      imageSrc: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+      title: 'Consulting',
+      description: 'Expert advice to grow your business and brand.',
     },
   ];
 
+  const firstColumnCards = portfolioCardsData.slice(0, 3);
+  const secondColumnCards = portfolioCardsData.slice(3, 6);
+  const thirdColumnCards = portfolioCardsData.slice(6, 8);
   return (
     <section className="portfolio-section">
       <div className="portfolio-section__left-column">
@@ -67,14 +75,37 @@ const PortfolioSection: React.FC = () => {
       </div>
       <div className="portfolio-section__right-column">
         <div className="portfolio-section__grid">
-          {portfolioCardsData.map((card, index) => (
-            <PortfolioCard
-              key={index} // In a real application, use a unique ID for the key
-              imageSrc={card.imageSrc}
-              title={card.title}
-              description={card.description}
-            />
-          ))}
+          <div className="portfolio-section__grid-wrapper">
+            {firstColumnCards.map((card, index) => (
+              <PortfolioCard
+                key={index} // In a r`eal application, use a unique ID for the key
+                imageSrc={card.imageSrc}
+                title={card.title}
+                description={card.description}
+              />
+            ))}
+          </div>
+          <div className="portfolio-section__grid-wrapper margin-top-2">
+            {secondColumnCards.map((card, index) => (
+              <PortfolioCard
+                key={index} // In a r`eal application, use a unique ID for the key
+                imageSrc={card.imageSrc}
+                title={card.title}
+                description={card.description}
+              />
+            ))}
+          </div>
+          <div className="portfolio-section__grid-wrapper margin-top-3">
+            {thirdColumnCards.map((card, index) => (
+              <PortfolioCard
+                key={index} // In a r`eal application, use a unique ID for the key
+                imageSrc={card.imageSrc}
+                title={card.title}
+                description={card.description}
+              />
+            ))}
+          </div>
+          
         </div>
       </div>
     </section>
