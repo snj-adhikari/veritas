@@ -1,28 +1,22 @@
-// Variables
-$color-background-dark: #000;
-$color-text-light: #fff;
-$color-text-dark: #a0a0a0;
-$color-input-background: #1a1a1a;
-$color-input-border: #333;
-$color-submit-button-background: #808080; // Greyish color from image
-$color-submit-button-text: #fff;
-$color-focus-border: #666; // A slightly lighter border on focus
-
 .contact-section {
-  background-color: $color-background-dark;
   color: $color-text-light;
   padding: 5rem 2rem;
-  display: flex;
-  flex-direction: column; // Stack on small screens
-  gap: 3rem;
+  background: #000;
   font-family: Arial, sans-serif; // Or your preferred font
 
-  @media (min-width: 1024px) {
-    flex-direction: row; // Side-by-side on larger screens
-    padding: 8rem 4rem;
-    justify-content: space-between;
-    align-items: flex-start; // Align top of content
+  &__wrapper {
+      display: flex;
+      flex-direction: column; // Stack on small screens
+      gap: 3rem;
+
+      @media (min-width: 1024px) {
+        flex-direction: row; // Side-by-side on larger screens
+        padding: 8rem 4rem;
+        justify-content: space-between;
+        align-items: flex-start; // Align top of content
+      }
   }
+
 
   &__left-content {
     flex: 1;

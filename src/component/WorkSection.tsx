@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Group } from 'three';
 import { ScrollControls, useScroll, Html } from '@react-three/drei';
 import WorkCard from './WorkCard';
 
@@ -64,43 +63,60 @@ const workCardsData: WorkCardData[] = [
     },
 ];
 
+const ScrollEndDetector = ({ onScrollEnd }: { onScrollEnd: () => void }) => {
+  const scroll = useScroll();
+  const hasEnded = useRef(false);
+
+  useFrame(() => {
+    // When scroll offset is at the very bottom (1)
+    if (scroll?.offset >= 0.999 && !hasEnded.current) {
+      onScrollEnd();
+      hasEnded.current = true;
+    }
+    // Optional: re-enable if user scrolls back up
+    if (scroll.offset < 0.999 && hasEnded.current) {
+        hasEnded.current = false;
+    }
+  });
+
+  return null;
+};
+
 const Cards = () => {
   const groupRef = useRef<import('three').Group>(null);
   const scroll = useScroll();
 
   useFrame(() => {
-    if (groupRef.current && workCardsData.length > 4) {
-      // Only apply scroll animation if there are more than 4 cards
-      const scrollOffset = Math.max(0, scroll.offset);
-      // Adjust the multiplier to control scroll speed and distance
-      groupRef.current.position.y = scrollOffset * -20;
+    if (groupRef.current) {
+      const scrollOffset = scroll.offset;
+      // Smooth scroll that reveals 2 cards at a time and focuses on new content
+      // Each scroll reveals next pair and moves focus to newly revealed cards
+      const totalPairs = Math.ceil(workCardsData.length / 2);
+      const scrollProgress = scrollOffset * (totalPairs - 1); // -1 because first pair is always visible
+      
+      // Move camera to focus on newly revealed content
+      // Start at 0, then move down to reveal and focus on new pairs
+      groupRef.current.position.y = scrollProgress * 8; // 8 units per pair reveal
     }
   });
 
-  const staticCards = workCardsData.slice(0, 4);
-  const scrollingCards = workCardsData.slice(4);
+  // All cards are treated equally for smooth reveal
+  const allCards = workCardsData;
 
   return (
     <group ref={groupRef}>
-      {/* Static Cards - 2x2 Layout */}
-      {staticCards.map((card, index) => {
+      {/* All Cards - Zig-zag layout with progressive reveal */}
+      {allCards.map((card, index) => {
         const isLeft = index % 2 === 0;
-        const xPos = isLeft ? -4 : 4;
-        // Place first two cards on the top row, next two on the second row
-        const yPos = index < 2 ? 0 : -8;
-        return (
-          <Html key={card.id} position={[xPos, yPos, 0]} className="card-wrapper">
-            <WorkCard {...card} />
-          </Html>
-        );
-      })}
+        // Position cards in rows of 2, starting from top with no initial spacing
+        // Each row is 5 units apart vertically for tight spacing
+        const row = Math.floor(index / 2);
+        const rowMod = index % 2; // 0 for left, 1 for right
+        const xPos = isLeft ? -9  + Math.floor(Math.random() * 2) : 3 - Math.floor(Math.random() * 2);
+        
+       
+        const yPos = index === 0 ? 5 : 5 - (row * 4) - (index * 3); // Start at y=0, then go down by 5 units per row
 
-      {/* Scrolling Cards - Zig-zag layout */}
-      {scrollingCards.map((card, index) => {
-        const isLeft = (staticCards.length + index) % 2 === 0;
-        const xPos = isLeft ? -4 : 4;
-        // Position scrolling cards below the static ones
-        const yPos = -16 - index * 8;
         return (
           <Html key={card.id} position={[xPos, yPos, 0]} className="card-wrapper">
             <WorkCard {...card} />
@@ -112,24 +128,39 @@ const Cards = () => {
 };
 
 const OurWorkSection: React.FC = () => {
+    const [isScrollEnabled, setIsScrollEnabled] = useState(true);
+  // Calculate scroll pages - first pair is always visible, remaining pairs need scrolling
+  const totalPairs = Math.ceil(workCardsData.length / 2);
+  const scrollPages = Math.max(1, totalPairs - 1.8); // -1 because first pair is always visible
+  
   return (
     <section className="our-work-section">
-      <div className="our-work-section__header">
-        <h2 className="our-work-section__title">Our Work.</h2>
-        <p className="our-work-section__description">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-          quae ab illo inventore veritatis et quasi architecto beatae vitae
-          dicta sunt explicabo.
-        </p>
+      <div className="container">
+        <div className="our-work-section__header">
+          <h2 className="our-work-section__title">Our Work.</h2>
+          <p className="our-work-section__description">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo.
+          </p>
+        </div>
       </div>
       <div className="our-work-section__canvas-container">
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+        <Canvas camera={{ position: [0, 0, 16], fov: 40 }}>
            <ambientLight intensity={1.5} />
            <pointLight position={[10, 10, 10]} intensity={1} />
-           {/* Set pages based on the number of scrolling cards */}
-           <ScrollControls pages={workCardsData.length > 4 ? (workCardsData.length - 4) * 0.5 : 0} damping={0.25}>
+           {/* Set pages based on pairs to reveal */}
+           <ScrollControls 
+             pages={scrollPages} 
+             damping={0.3}
+             horizontal={false}
+             distance={1}
+             enabled={isScrollEnabled} // Enable/disable scrolling based on state
+           >
              <Cards />
+           <ScrollEndDetector onScrollEnd={() => setIsScrollEnabled(false)} />
+
            </ScrollControls>
         </Canvas>
       </div>

@@ -76,7 +76,6 @@ const PortfolioSection: React.FC = () => {
             />
           ))}
         </div>
-        <div className="portfolio-section__corner-icon">F</div> {/* Assuming "F" is a static design element */}
       </div>
     </section>
   );

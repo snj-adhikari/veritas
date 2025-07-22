@@ -1,27 +1,14 @@
-// Variables
-$color-primary-text: #fff;
-$color-secondary-text: #a0a0a0;
-$color-background-dark: #1a1a1a;
-$color-card-background: #2a2a2a;
-$color-blue-border: #007bff; // A vibrant blue
-$color-orange-border: #ff7f00; // A vibrant orange
-$color-tag-background: #444;
-$color-tag-text: #eee;
+
 
 // Import card styles so they are globally available
 @import './work.module.scss';
 
 .our-work-section {
   position: relative;
-  background-color: $color-background-dark;
+  background: #000;
   padding: 6rem 2rem;
   color: $color-primary-text;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  display: flex;
-  flex-direction: column;
   gap: 2rem;
-  min-height: 100vh;
-  align-items: center;
 
   &__header {
     width: 100%;
@@ -45,11 +32,19 @@ $color-tag-text: #eee;
   &__canvas-container {
     width: 100%;
     height: 85vh;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
     // Prevents mouse events on the canvas from interfering with scrolling
     pointer-events: none; 
 
-    @media (max-width: 900px) {
-      height: 100vh;
+    // Target the div created by ScrollControls to hide the scrollbar
+    > div {
+      scrollbar-width: none; /* For Firefox */
+      &::-webkit-scrollbar {
+        display: none; /* For Chrome, Safari, and Opera */
+      }
     }
   }
 
@@ -82,6 +77,9 @@ $color-tag-text: #eee;
   // Re-enable pointer events for the cards themselves
   pointer-events: auto;
   width: 400px;
+   transform: scale(0.6);
+  transition: transform 0.4s ease;
+  z-index:10;
   
   @media (max-width: 1200px) {
     width: 350px;
