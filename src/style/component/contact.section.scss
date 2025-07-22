@@ -8,7 +8,7 @@
       flex-direction: column; // Stack on small screens
       gap: 3rem;
 
-      @media (min-width: 1024px) {
+      @include desktop-only {
         flex-direction: row; // Side-by-side on larger screens
         padding: 8rem 4rem;
         justify-content: space-between;

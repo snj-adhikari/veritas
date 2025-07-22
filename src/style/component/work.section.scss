@@ -14,11 +14,21 @@
     width: 100%;
     margin-bottom: 3rem;
     display: flex;
+    flex-direction: column;
     gap: 4rem;
-    justify-content: space-between  ;
+
+    @include desktop-only {
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+
 
     &-content { 
-      width: calc(100% - 420px);
+      @include tablet-and-desktop {
+        width: calc(100% - 420px);
+      }
+
       text-align: center;
     }
 
