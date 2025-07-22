@@ -6,7 +6,6 @@ const Navbar: React.FC = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   return (
     <header className={`navbar ${isMenuOpen ? 'navbar--open' : ''}`}>
       <nav className="navbar__container">
@@ -23,7 +22,7 @@ const Navbar: React.FC = () => {
           <li className="navbar__item">Contact</li>
         </ul>
 
-        <button className="navbar__cta navbar__cta--desktop">CTA</button>
+       <button className="navbar__cta navbar__cta--desktop">CTA</button>
 
         <button className="navbar__hamburger" onClick={toggleMenu} aria-label="Toggle menu">
           <span></span>

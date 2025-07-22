@@ -1,38 +1,76 @@
 .navbar {
-  padding: 1rem 2rem;
-  background-color: #111827; // Example background color
-  color: #ffffff;
+  position: sticky;
+  top: 0;
+  padding-top: 24px;
+  z-index: 9999999;
 
   &__container {
+    background-color: #2e2e33;
+    max-width: $max-container-width;
+    margin: 0 auto;
+    padding: 12px 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   }
 
   &__logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-    z-index: 101;
+    background-color: #e6e6ea;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   &__nav {
-    display: none; // Hidden on mobile by default
+    display: flex;
+    gap: 24px;
     list-style: none;
+    margin: 0 40px;
     padding: 0;
-    margin: 0;
-  }
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    border-left: 1px solid #5a5a5a;
+    padding-left: 40px;
 
-  &__item {
-    margin: 0 1rem;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
+    @include mobile-only {
+      display: none; // Hide on mobile
+    }
+
+    &__item {
+      cursor: pointer;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: white;
+      }
     }
   }
 
-  &__cta--desktop {
-    display: none; // Hidden on mobile
+  &__cta {
+    background-color: #4f46e5;
+    color: #000;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+
+    @include mobile-only {
+      display: none; // Hide on mobile
+    }
+
+    &:hover {
+      background-color: lighten(#8d93af, 10%);
+    }
   }
 
   &__hamburger {
@@ -43,7 +81,9 @@
     height: 2rem;
     background: transparent;
     border: none;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 14px;
     padding: 0;
     z-index: 101;
 
@@ -93,26 +133,10 @@
     }
   }
 
-  // --- Tablet and Desktop Styles ---
   @include tablet-and-desktop {
-    &__nav {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
 
     &__hamburger {
       display: none;
-    }
-
-    &__cta--desktop {
-      display: block;
-      background-color: #4f46e5;
-      color: white;
-      border: none;
-      padding: 0.5rem 1.5rem;
-      border-radius: 0.375rem;
-      cursor: pointer;
     }
   }
 }
