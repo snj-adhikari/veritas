@@ -137,13 +137,24 @@ const OurWorkSection: React.FC = () => {
     <section className="our-work-section">
       <div className="container">
         <div className="our-work-section__header">
-          <h2 className="our-work-section__title">Our Work.</h2>
-          <p className="our-work-section__description">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo.
-          </p>
+          <div className='our-work-section__header-content'>
+            <h2 className="our-work-section__title">Our Work.</h2>
+            <p className="our-work-section__description">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+              quae ab illo inventore veritatis et quasi architecto beatae vitae
+              dicta sunt explicabo.
+            </p>
+          </div>
+            <div className='our-work-section__header-card'>
+            <WorkCard
+              title="Featured Project"
+              description="A showcase of our latest and greatest work, highlighting our expertise and creativity."
+              imageSrc="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80"
+              tags={['Featured', 'Project']}
+              theme={'orange'}
+            />
+            </div>
         </div>
       </div>
       <div className="our-work-section__canvas-container">

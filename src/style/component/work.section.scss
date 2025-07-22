@@ -12,10 +12,18 @@
 
   &__header {
     width: 100%;
-    max-width: 800px; 
-    text-align: center;
     margin-bottom: 3rem;
+    display: flex;
+    gap: 4rem;
+    justify-content: space-between  ;
+
+    &-content { 
+      width: calc(100% - 420px);
+      text-align: center;
+    }
+
   }
+
 
   &__title {
     font-size: 3.5rem;
@@ -70,22 +78,23 @@
       transform: translateY(-3px);
     }
   }
+
+  // This wrapper is used by the <Html> component from drei
+  .card-wrapper {
+    // Re-enable pointer events for the cards themselves
+    pointer-events: auto;
+    width: 400px;
+    transform: scale(0.6);
+    transition: transform 0.4s ease;
+    z-index:10;
+    
+    @media (max-width: 1200px) {
+      width: 350px;
+    }
+
+    @media (max-width: 900px) {
+      width: 320px;
+    }
+  }
 }
 
-// This wrapper is used by the <Html> component from drei
-.card-wrapper {
-  // Re-enable pointer events for the cards themselves
-  pointer-events: auto;
-  width: 400px;
-   transform: scale(0.6);
-  transition: transform 0.4s ease;
-  z-index:10;
-  
-  @media (max-width: 1200px) {
-    width: 350px;
-  }
-
-  @media (max-width: 900px) {
-    width: 320px;
-  }
-}

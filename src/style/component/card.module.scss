@@ -58,6 +58,8 @@
 
   &--expanded {
     transform: scale(1.05);
+    margin-bottom: 3rem;
+    transition: width  1s ease-in-out, height 1s ease-in-out;
 
     #{$self}__image {
       width: 100%;
@@ -65,7 +67,7 @@
       height: 120px;
       object-fit: cover;
       margin-bottom: 1rem;
-      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      transition: width  1s ease-in-out, height 1s ease-in-out;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 

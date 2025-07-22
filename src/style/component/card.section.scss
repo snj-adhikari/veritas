@@ -4,13 +4,22 @@
   position: relative;
   color: #ffffff;
   overflow: hidden;
+  padding-bottom: 4rem;
 
   &__header {
     padding: 4rem 2rem;
     margin-bottom: 2rem;
     position: relative;
+    display: flex;
     z-index: 2;
+    gap: 2rem;
+
+    &-content { 
+      width: calc(100% - 350px );
+    }
+
   }
+
 
   &__title {
     font-size: 2rem;
@@ -24,20 +33,34 @@
   }
 
   &__canvas-container {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    background: transparent;
+    display: flex;
+    justify-content: center;
   }
 
-  &__wrapper {
-    pointer-events: auto;
-    width: 360px;
-    transform: scale(0.8);
-    transition: transform 0.3s ease;
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
 
-    &:hover {
-      transform: scale(0.85);
+  &__navigation {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+
+    button {
+      background-color: #4b5563;
+      color: #ffffff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #6b7280;
+      }
     }
   }
 }
