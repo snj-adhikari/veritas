@@ -67,13 +67,6 @@ const workCardsData: WorkCardData[] = [
     },
 ];
 
-// Function to get random grid position
-const getRandomGridPosition = () => {
-    const row = Math.floor(Math.random() * 10) + 1; // Example: random row between 1 and 10
-    const column = Math.floor(Math.random() * 2) + 2; // Random column 1 or 2
-    return { row, column };
-};
-
 const WorkAnimation: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -92,24 +85,35 @@ const WorkAnimation: React.FC = () => {
     const gridItems = gridRef.current?.querySelectorAll('.grid__item');
 
     if (gridItems) {
-      preloadImages('.grid__item-img').then(() => {
+      // Preload images for all cards
+      preloadImages('.work-card__image').then(() => {
         document.body.classList.remove('loading');
 
-        gridItems.forEach(item => {
-          const image = item.querySelector('.grid__item-img');
-          gsap.timeline({
+        gridItems.forEach((item, index) => {
+          // Animate each card
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: item,
-              start: 'top center',
+              start: 'top bottom',
               end: 'bottom top',
               scrub: true,
             },
-          }).set(image, {
-            transformOrigin: `${gsap.utils.random(0,1) > 0.5 ? 0 : 100}% 100%`
-          }).to(image, {
-            ease: 'none',
-            scale: 0,
           });
+
+          tl.set(item, {
+            // transformOrigin: 'center center',
+            transformOrigin: `${gsap.utils.random(0,1) > 0.5 ? 0 : 100}% 100%`
+          })
+          .fromTo(item, 
+            { opacity: 0, scale: 1 },
+            { ease: 'power1.inOut', opacity: 1, scale: 1, duration: 0.5 }
+          )
+          .to(item, {
+            ease: 'power1.inOut',
+            opacity: 0,
+            scale: 0.6,
+            duration: 0.5
+          }, '+=0.5'); // Add a delay before starting the fade-out
         });
       });
     }
@@ -138,23 +142,26 @@ const WorkAnimation: React.FC = () => {
             />
           </div>
         </div>
-      </div>
-      <div ref={gridRef} className="work-animation__gri">
-        {workCardsData.map((card) => {
-            const { row, column } = getRandomGridPosition();
-            return (
-              <div key={card.id} className="grid__item" style={{ gridRow: row, gridColumn: column }}>
-                <div className="grid__item-img" style={{ backgroundImage: `url(${card.imageSrc})` }}>
+        <div ref={gridRef} className="work-animation__grid">
+            {workCardsData.map((card, index) => {
+                // Add a class for staggering and set a random margin top for a masonry effect
+                const rowNo = index % 2 ;
+                const isLeft = index % 2 === 0;
+                const rightColumn = isLeft ? 0 : 80;
+                const xSpacing = Math.floor(Math.random() * 10) * 15;
+                const ySpacing = rowNo * 40   + rightColumn
+                return (
+                <div key={card.id} className="grid__item" style={{ marginTop: `${ySpacing}px`, marginLeft: `${xSpacing}px`, marginRight: `${xSpacing}px` }}>
                     <WorkCard {...card} />
                 </div>
-              </div>
-            );
-        })}
-      </div>
-      <div className="our-work-section__cta-container">
-        <button className="our-work-section__cta-button">
-          Let's Work Together
-        </button>
+                );
+            })}
+        </div>
+        <div className="our-work-section__cta-container">
+            <button className="our-work-section__cta-button">
+            Let's Work Together
+            </button>
+        </div>
       </div>
     </section>
   );

@@ -1,22 +1,17 @@
  .work-animation { 
      &__grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 2rem;
+            display: grid;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+            align-items: start; // Align
         }
 
         .grid__item {
-        max-width: 350px;
-        width: 100%;
-        }
-
-        .grid__item-img {
+            max-width: 350px;
             width: 100%;
-            padding-top: 100%; // Creates a square aspect ratio
-            background-size: cover;
-            background-position: center;
-            position: relative;
+            margin-bottom: 50px;
         }
  
  }

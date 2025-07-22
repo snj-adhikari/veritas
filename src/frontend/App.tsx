@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero/>
-      <WorkAnimation/>
+     
       <div className="container">
         <CardSection/>
         
@@ -24,7 +24,9 @@ function App() {
       <div className="container">
         <PortfolioSection/>
       </div>
+       <WorkAnimation/>
       <ContactSection/>
+      
       <FooterSection/>
     </div>
   );
