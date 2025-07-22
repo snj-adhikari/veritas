@@ -15,10 +15,10 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero/>
-      <div className="container">
+      {/* <div className="container">
         <CardSection/>
         
-      </div>
+      </div> */}
             <WorkAnimation/>
       <div className="container">
         <PortfolioSection/>
@@ -26,7 +26,6 @@ function App() {
 
       <OurWorkSection/>
       <ContactSection/>
-        <WorkAnimation/>
       <FooterSection/>
     </div>
   );
