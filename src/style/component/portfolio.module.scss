@@ -7,22 +7,15 @@
   height: 220px; // Fixed height
   cursor: pointer;
   position: relative;
-  transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1), width 0.4s ease, height 0.4s ease;
-  transition-delay: 0.8s;
+  transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
   margin-bottom: 2rem;
-
-  &:hover {
-    transform: scale(1.05); // Slight increase in size on hover
-    width: fit-content;
-    height: fit-content
-  }
 
   $self: &;
 
   &__inner {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 220px;
+    height: 220px;
     text-align: center;
     transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
     transform-style: preserve-3d;
@@ -43,8 +36,6 @@
       #{$self}__back {
         opacity: 1;
         position: relative;
-        height: fit-content;
-        width: fit-content;
         pointer-events: auto;
       }
     }
@@ -57,6 +48,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 12px;
+    width: 190px;
+    height: 190px;
     padding:1rem;
     left:0;
     right:0;
@@ -67,7 +60,6 @@
     background-size: cover;
     display:flex;
     justify-content: center;
-    height: inherit;
     align-items: center;
     background-position: center;
     color: #ffffff;
