@@ -49,7 +49,7 @@ const workCardsData: WorkCardData[] = [
       id: 5,
       title: 'E-commerce Platform Launch',
       description: 'Successfully launched a new e-commerce platform, leading to a 150% increase in online sales.',
-      imageSrc: 'https://images.unsplash.com/photo-1561736778-92e52a7769cb?w=500&q=80',
+      imageSrc: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&q=80',
       tags: ['E-commerce', 'Retail'],
       theme: 'orange',
     },
@@ -115,7 +115,7 @@ const Cards = () => {
         const xPos = isLeft ? -9  + Math.floor(Math.random() * 2) : 3 - Math.floor(Math.random() * 2);
         
        
-        const yPos = index === 0 ? 5 : 5 - (row * 4) - (index * 3); // Start at y=0, then go down by 5 units per row
+        const yPos = index === 0 ? 5 : 5 - (row * 3) - (index * 3); // Start at y=0, then go down by 5 units per row
 
         return (
           <Html key={card.id} position={[xPos, yPos, 0]} className="card-wrapper">
