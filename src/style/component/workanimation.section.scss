@@ -1,0 +1,17 @@
+ .work-animation { 
+     &__grid {
+            display: grid;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+            align-items: start; // Align
+        }
+
+        .grid__item {
+            max-width: 350px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+ 
+ }

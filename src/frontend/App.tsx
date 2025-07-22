@@ -8,6 +8,7 @@ import OurWorkSection from '../component/WorkSection';
 import PortfolioSection from '../component/PorfolioSection';
 import ContactSection from '../component/ContactCard';
 import FooterSection from '../component/Footer';
+import WorkAnimation from '../component/WorkAnimation';
 
 function App() {
   return (
@@ -18,11 +19,14 @@ function App() {
         <CardSection/>
         
       </div>
-      <OurWorkSection/>
+            <WorkAnimation/>
       <div className="container">
         <PortfolioSection/>
       </div>
+
+      <OurWorkSection/>
       <ContactSection/>
+        <WorkAnimation/>
       <FooterSection/>
     </div>
   );
