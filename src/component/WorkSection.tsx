@@ -112,7 +112,7 @@ const Cards = () => {
         // Each row is 5 units apart vertically for tight spacing
         const row = Math.floor(index / 2);
         const rowMod = index % 2; // 0 for left, 1 for right
-        const xPos = isLeft ? -9  + Math.floor(Math.random() * 2) : 3 - Math.floor(Math.random() * 2);
+        const xPos = isLeft ? -8  + Math.floor(Math.random() * 2) : 3 - Math.floor(Math.random() * 2);
         
        
         const yPos = index === 0 ? 5 : 5 - (row * 3) - (index * 3); // Start at y=0, then go down by 5 units per row
