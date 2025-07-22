@@ -8,12 +8,14 @@ import OurWorkSection from '../component/WorkSection';
 import PortfolioSection from '../component/PorfolioSection';
 import ContactSection from '../component/ContactCard';
 import FooterSection from '../component/Footer';
+import WorkAnimation from '../component/WorkAnimation';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Hero/>
+      <WorkAnimation/>
       <div className="container">
         <CardSection/>
         

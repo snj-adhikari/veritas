@@ -1,0 +1,22 @@
+ .work-animation { 
+     &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 2rem;
+        }
+
+        .grid__item {
+        max-width: 350px;
+        width: 100%;
+        }
+
+        .grid__item-img {
+            width: 100%;
+            padding-top: 100%; // Creates a square aspect ratio
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+ 
+ }
