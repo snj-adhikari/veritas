@@ -15,18 +15,18 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero/>
-     
       <div className="container">
         <CardSection/>
         
       </div>
-      <OurWorkSection/>
+            <WorkAnimation/>
       <div className="container">
         <PortfolioSection/>
       </div>
-       <WorkAnimation/>
+
+      <OurWorkSection/>
       <ContactSection/>
-      
+        <WorkAnimation/>
       <FooterSection/>
     </div>
   );

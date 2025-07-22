@@ -69,58 +69,94 @@ const workCardsData: WorkCardData[] = [
 
 const WorkAnimation: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
+    let lenis: Lenis | null = null;
+    let observer: IntersectionObserver;
 
-    const scrollFn = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(scrollFn);
-    };
-    requestAnimationFrame(scrollFn);
-
-    const gridItems = gridRef.current?.querySelectorAll('.grid__item');
-
-    if (gridItems) {
-      // Preload images for all cards
-      preloadImages('.work-card__image').then(() => {
-        document.body.classList.remove('loading');
-
-        gridItems.forEach((item, index) => {
-          // Animate each card
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: item,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          });
-
-          tl.set(item, {
-            // transformOrigin: 'center center',
-            transformOrigin: `${gsap.utils.random(0,1) > 0.5 ? 0 : 100}% 100%`
-          })
-          .fromTo(item, 
-            { opacity: 0, scale: 1 },
-            { ease: 'power1.inOut', opacity: 1, scale: 1, duration: 0.5 }
-          )
-          .to(item, {
-            ease: 'power1.inOut',
-            opacity: 0,
-            scale: 0.6,
-            duration: 0.5
-          }, '+=0.5'); // Add a delay before starting the fade-out
-        });
+    const setupScroll = () => {
+      lenis = new Lenis({
+        lerp: 0.1,
+        smoothWheel: true,
       });
+
+      const scrollFn = (time: number) => {
+        lenis?.raf(time);
+        requestAnimationFrame(scrollFn);
+      };
+      requestAnimationFrame(scrollFn);
+
+      const gridItems = gridRef.current?.querySelectorAll('.grid__item');
+
+      if (gridItems) {
+        // Preload images for all cards
+        preloadImages('.work-card__image').then(() => {
+          document.body.classList.remove('loading');
+
+          gridItems.forEach((item, index) => {
+            // Animate each card
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: item,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            });
+
+            tl.set(item, {
+            //   transformOrigin: 'center center',
+              transformOrigin: `${gsap.utils.random(0,1) > 0.5 ? 0 : 100}% 100%`
+            })
+            .fromTo(item, 
+              { opacity: 0, scale: 1 },
+              { ease: 'power1.inOut', opacity: 1, scale: 1, duration: 0.5 }
+            )
+            .to(item, {
+              ease: 'power1.inOut',
+              opacity: 0,
+              scale: 0.6,
+              duration: 0.5
+            }, '+=0.5'); // Add a delay before starting the fade-out
+          });
+        });
+      }
+    };
+
+    const cleanupScroll = () => {
+      if (lenis) {
+        lenis.destroy();
+        lenis = null;
+      }
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
+
+    if (sectionRef.current) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setupScroll();
+          } else {
+            cleanupScroll();
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(sectionRef.current);
     }
+
+    return () => {
+      cleanupScroll();
+      if (observer && sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   return (
-    <section className="our-work-section work-animation">
+    <section ref={sectionRef} className="our-work-section work-animation">
       <div className="container">
         <div className="our-work-section__header">
           <div className='our-work-section__header-content'>
