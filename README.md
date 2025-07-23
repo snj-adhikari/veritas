@@ -2,7 +2,7 @@
 
 This project is a basic React website theme designed for portfolios, featuring simple animations and a clean design. It's built using Create React App, providing a solid foundation for showcasing your work and skills.
 
-<img width="2880" height="8580" alt="screencapture-localhost-3000-2025-07-21-21_10_00" src="https://github.com/user-attachments/assets/24d09416-3af0-4335-9efe-41375d740594" />
+<img width="3840" height="14404" alt="screencapture-veritas-jade-vercel-app-2025-07-23-10_16_36" src="https://github.com/user-attachments/assets/f3b5e90a-c2a5-4613-a9d0-263b6e80e5a5" />
 
 
 ## Features
